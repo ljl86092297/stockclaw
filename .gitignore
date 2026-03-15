@@ -1,0 +1,47 @@
+# 排除非股票相关文件
+other_files/
+__pycache__/
+*.db
+*.db-journal
+*.log
+venv/
+mouse_venv/
+*.pyc
+__pycache__/
+.DS_Store
+*.tar.gz
+stock_analyzer_portable/
+
+# 排除AI研究文件（非股票交易相关）
+AI*.md
+stablecoin*.md
+wechat*.py
+mouse*.py
+openclaw_mouse_control.py
+screenshot*.py
+diagnose*.py
+launch*.py
+open_wechat.py
+send_to_baobao.py
+self_*.py
+verified_wechat_send.py
+bring_wechat_to_front.py
+direct_wechat_launch.py
+ensure_send_to_baobao.py
+quick_wechat_launch.py
+ultimate_wechat_solution.py
+
+# 学习记录（可以保留，但排除非股票学习）
+learning/2026-02-*/
+learning/2026-03/03-*/wechat*
+learning/2026-03/03-*/mouse*
+
+# 只保留股票相关学习
+!learning/2026-03/03-15_ADX指标学习/
+!learning/2026-03/03-15_短线投资策略学习/
+
+# 临时文件
+*.tmp
+*.temp
+test_*.py
+quick_*.py
