@@ -1,0 +1,26 @@
+-- StockAnalyzer 数据库结构
+CREATE TABLE IF NOT EXISTS stock_analysis (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    stock_code TEXT,
+    analysis_date DATE,
+    current_price REAL,
+    ma5 REAL,
+    ma10 REAL,
+    ma20 REAL,
+    atr REAL,
+    volume_ratio REAL,
+    price_position REAL,
+    pe REAL,
+    pb REAL,
+    recommendation TEXT,
+    buy_min REAL,
+    buy_max REAL,
+    target1 REAL,
+    target2 REAL,
+    stop_loss REAL,
+    holding_days INTEGER,
+    buy_conditions TEXT,
+    sell_conditions TEXT,
+    stop_conditions TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
