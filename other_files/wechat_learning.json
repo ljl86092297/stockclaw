@@ -1,0 +1,93 @@
+{
+  "successful": [
+    {
+      "time": "23:41:44",
+      "operation": "打开搜索框",
+      "command": "{\"action\": \"key\", \"key\": \"Control_L+f\"}",
+      "duration": 2.08257794380188,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:48",
+      "operation": "搜索联系人",
+      "command": "{\"action\": \"type\", \"text\": \"宝宝\"}",
+      "duration": 2.0779192447662354,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:52",
+      "operation": "选择搜索结果",
+      "command": "{\"action\": \"key\", \"key\": \"Return\"}",
+      "duration": 2.0711941719055176,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:56",
+      "operation": "点击输入框",
+      "command": "{\"action\": \"move\", \"x\": 960, \"y\": 1000}",
+      "duration": 2.024482488632202,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:42:00",
+      "operation": "发送测试消息",
+      "command": "{\"action\": \"type\", \"text\": \"[自我学习测试]\"}",
+      "duration": 2.113544464111328,
+      "result": "success",
+      "confidence": "high"
+    }
+  ],
+  "failed": [],
+  "all": [
+    {
+      "time": "23:41:44",
+      "operation": "打开搜索框",
+      "command": "{\"action\": \"key\", \"key\": \"Control_L+f\"}",
+      "duration": 2.08257794380188,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:48",
+      "operation": "搜索联系人",
+      "command": "{\"action\": \"type\", \"text\": \"宝宝\"}",
+      "duration": 2.0779192447662354,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:52",
+      "operation": "选择搜索结果",
+      "command": "{\"action\": \"key\", \"key\": \"Return\"}",
+      "duration": 2.0711941719055176,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:41:56",
+      "operation": "点击输入框",
+      "command": "{\"action\": \"move\", \"x\": 960, \"y\": 1000}",
+      "duration": 2.024482488632202,
+      "result": "success",
+      "confidence": "high"
+    },
+    {
+      "time": "23:42:00",
+      "operation": "发送测试消息",
+      "command": "{\"action\": \"type\", \"text\": \"[自我学习测试]\"}",
+      "duration": 2.113544464111328,
+      "result": "success",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "total_operations": 5,
+    "successful": 5,
+    "failed": 0,
+    "uncertain": 0
+  }
+}
