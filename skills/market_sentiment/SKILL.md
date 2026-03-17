@@ -18,28 +18,38 @@ metadata: { "openclaw": { "emoji": "😊", "requires": { "python": true, "packag
 - "舆情监控"
 - "市场热度分析"
 - "情绪指标计算"
+- "判断市场环境"
+- "分析大盘趋势"
+- "观察板块轮动"
+- "评估市场风险"
 
 ## 分析维度
 
-### 1. 资金流向分析
+### 1. 市场环境分析（新增）
+- 大盘趋势判断（牛市/熊市/震荡市）
+- 板块轮动观察
+- 市场整体风险评估
+- 环境因子量化
+
+### 2. 资金流向分析
 - 主力资金流向
 - 北向资金流向
 - 融资融券数据
 - 大单交易分析
 
-### 2. 市场热度指标
+### 3. 市场热度指标
 - 成交量分析
 - 换手率分析
 - 涨停板数量
 - 市场宽度指标
 
-### 3. 投资者情绪
+### 4. 投资者情绪
 - 散户情绪指标
 - 机构情绪指标
 - 情绪指数计算
 - 恐慌贪婪指数
 
-### 4. 舆情分析
+### 5. 舆情分析
 - 新闻情感分析
 - 社交媒体情绪
 - 搜索热度分析
@@ -605,3 +615,270 @@ print("="*60)
 - **中性 (40-59)**: 市场平衡，正常操作
 - **恐惧 (20-39)**: 市场悲观，可能有布局机会
 - **极度恐惧 (<20)**: 市场恐慌，可能是买入机会
+
+## 市场环境分析模块（新增）
+
+### 市场环境判断
+
+```python
+from market_environment import MarketEnvironmentAnalyzer
+
+# 创建分析器
+analyzer = MarketEnvironmentAnalyzer()
+
+# 1. 大盘趋势分析
+trend_result = analyzer.analyze_market_trend(index_code='sh.000001', days=60)
+print(f"市场状态: {trend_result.get('state_description', '未知')}")
+print(f"趋势强度: {trend_result.get('trend_strength', '未知')}")
+print(f"风险等级: {trend_result.get('risk_level', '未知')}")
+print(f"建议操作: {trend_result.get('suggested_action', '未知')}")
+
+# 2. 板块轮动分析
+sector_result = analyzer.analyze_sector_rotation()
+print(f"\n强势板块: {[s['sector_name'] for s in sector_result.get('strong_sectors', [])]}")
+print(f"弱势板块: {[s['sector_name'] for s in sector_result.get('weak_sectors', [])]}")
+print(f"市场特征: {sector_result.get('market_character', '未知')}")
+
+# 3. 综合市场环境分析
+comprehensive_result = analyzer.comprehensive_market_analysis()
+
+# 显示综合评估
+if 'overall_assessment' in comprehensive_result:
+    assessment = comprehensive_result['overall_assessment']
+    print(f"\n综合评分: {assessment.get('composite_score', 'N/A')}/100")
+    print(f"环境评级: {assessment.get('environment_rating', '未知')}")
+    print(f"操作策略: {assessment.get('operating_strategy', {}).get('strategy', '未知')}")
+    print(f"建议仓位: {assessment.get('operating_strategy', {}).get('suggested_position', '未知')}")
+
+# 显示操作建议
+if 'recommendations' in comprehensive_result:
+    print("\n操作建议:")
+    for rec in comprehensive_result['recommendations']:
+        print(f"  {rec}")
+```
+
+### 市场环境判断标准
+
+#### 1. 牛市特征（综合评分≥70）：
+- 大盘持续上涨（20日涨幅>10%）
+- 均线呈多头排列
+- 成交量稳步放大
+- 多个板块轮番上涨
+- 市场情绪乐观
+
+#### 2. 熊市特征（综合评分<40）：
+- 大盘持续下跌（20日跌幅>10%）
+- 均线呈空头排列
+- 成交量萎缩
+- 多数板块下跌
+- 市场情绪悲观
+
+#### 3. 震荡市特征（综合评分40-70）：
+- 大盘在一定区间内波动
+- 均线纠缠
+- 成交量不稳定
+- 板块分化明显
+- 市场情绪中性
+
+### 环境因子对分析的影响
+
+#### 牛市环境：
+- ✅ 可积极寻找买入机会
+- ✅ 关注成长股和强势板块
+- ✅ 适当提高仓位
+- ⚠️ 注意过热风险，设好止损
+
+#### 熊市环境：
+- ⚠️ 以风险控制为主
+- ⚠️ 减少操作频率
+- ⚠️ 关注防御性板块
+- 💡 可寻找超跌反弹机会
+
+#### 震荡市环境：
+- 🔄 高抛低吸，波段操作
+- 🔄 关注结构性机会
+- 🔄 控制仓位，快进快出
+- 📊 密切观察突破方向
+
+### 环境判断在股票分析中的应用
+
+```python
+def analyze_stock_with_market_context(stock_code, market_analysis):
+    """
+    结合市场环境分析个股
+    
+    Parameters:
+    -----------
+    stock_code : str
+        股票代码
+    market_analysis : dict
+        市场环境分析结果
+        
+    Returns:
+    --------
+    dict : 结合市场环境的个股分析
+    """
+    # 获取市场环境评级
+    env_rating = market_analysis.get('overall_assessment', {}).get('environment_rating', '中性')
+    composite_score = market_analysis.get('overall_assessment', {}).get('composite_score', 50)
+    
+    # 根据市场环境调整分析策略
+    if env_rating in ['良好', '偏好'] and composite_score >= 60:
+        # 牛市或偏好环境：积极分析
+        analysis_mode = '积极'
+        risk_tolerance = '较高'
+        position_suggestion = '可考虑建仓或加仓'
+        
+    elif env_rating in ['偏差', '差'] and composite_score < 40:
+        # 熊市或偏差环境：保守分析
+        analysis_mode = '保守'
+        risk_tolerance = '较低'
+        position_suggestion = '建议观望或轻仓'
+        
+    else:
+        # 震荡市或中性环境：谨慎分析
+        analysis_mode = '谨慎'
+        risk_tolerance = '中等'
+        position_suggestion = '小仓位参与，设好止损'
+    
+    # 获取个股技术分析（使用technical-analysis技能）
+    from technical_analysis import analyze_stock_technicals
+    technical_analysis = analyze_stock_technicals(stock_code)
+    
+    # 结合市场环境给出最终建议
+    final_recommendation = adjust_recommendation_by_market(
+        technical_analysis, env_rating, composite_score
+    )
+    
+    return {
+        'stock_code': stock_code,
+        'market_environment': env_rating,
+        'market_score': composite_score,
+        'analysis_mode': analysis_mode,
+        'risk_tolerance': risk_tolerance,
+        'position_suggestion': position_suggestion,
+        'technical_analysis': technical_analysis,
+        'final_recommendation': final_recommendation,
+        'market_context_notes': get_market_context_notes(env_rating, composite_score)
+    }
+
+def adjust_recommendation_by_market(tech_analysis, env_rating, market_score):
+    """根据市场环境调整技术分析建议"""
+    tech_signal = tech_analysis.get('signal', '中性')
+    tech_strength = tech_analysis.get('strength', 50)
+    
+    # 基础建议
+    if tech_signal == '买入' and tech_strength >= 70:
+        base_recommendation = '考虑买入'
+    elif tech_signal == '卖出' and tech_strength >= 70:
+        base_recommendation = '考虑卖出'
+    else:
+        base_recommendation = '观望'
+    
+    # 根据市场环境调整
+    if env_rating in ['良好', '偏好'] and market_score >= 60:
+        # 牛市环境：强化买入信号，弱化卖出信号
+        if tech_signal == '买入':
+            return f"📈 市场环境支持，{base_recommendation}"
+        elif tech_signal == '卖出':
+            return f"⚠️ 虽有卖出信号，但市场环境较好，可考虑减仓而非清仓"
+        else:
+            return f"📊 市场环境较好，{base_recommendation}"
+    
+    elif env_rating in ['偏差', '差'] and market_score < 40:
+        # 熊市环境：强化卖出信号，弱化买入信号
+        if tech_signal == '卖出':
+            return f"📉 市场环境较差，{base_recommendation}"
+        elif tech_signal == '买入':
+            return f"⚠️ 虽有买入信号，但市场环境较差，建议谨慎或观望"
+        else:
+            return f"🛡️ 市场环境较差，{base_recommendation}"
+    
+    else:
+        # 震荡市环境：保持中性
+        return base_recommendation
+
+def get_market_context_notes(env_rating, market_score):
+    """获取市场环境说明"""
+    notes = []
+    
+    if env_rating == '良好' and market_score >= 70:
+        notes.append("✅ 市场环境良好，可积极寻找机会")
+        notes.append("✅ 趋势交易策略效果较好")
+        notes.append("⚠️ 注意不要追高，设好止损")
+    
+    elif env_rating == '差' and market_score < 40:
+        notes.append("⚠️ 市场环境较差，以风险控制为主")
+        notes.append("⚠️ 减少操作频率，保持轻仓")
+        notes.append("💡 可关注超跌反弹机会")
+    
+    elif env_rating == '中性':
+        notes.append("🔄 市场环境中性，适合波段操作")
+        notes.append("🔄 关注结构性机会")
+        notes.append("📊 密切观察市场突破方向")
+    
+    else:
+        notes.append("📈 市场环境偏好，可适度参与")
+        notes.append("📉 市场环境偏差，需谨慎操作")
+    
+    return notes
+```
+
+### 环境判断的重要性
+
+#### 避免昨天的错误：
+昨天在市场明显下跌时建议"强烈买入"，就是因为：
+1. ❌ 没有判断市场环境（大盘下跌）
+2. ❌ 忽视板块表现（多数板块下跌）
+3. ❌ 机械依赖技术指标（只看个股不看大盘）
+
+#### 正确的分析流程：
+1. ✅ **先看市场环境**：判断大盘趋势、板块轮动
+2. ✅ **再看个股技术**：在正确市场环境下分析个股
+3. ✅ **结合风险评估**：根据环境调整风险控制
+4. ✅ **给出合理建议**：考虑环境因素的建议
+
+### 环境判断的更新频率
+
+1. **每日开盘前**：判断当日市场环境基调
+2. **盘中关键时点**：10:30, 13:30 检查环境变化
+3. **收盘后总结**：评估全天环境变化
+4. **重大事件时**：政策发布、经济数据公布等
+
+### 环境判断的数据源
+
+1. **大盘指数**：上证指数、深证成指、创业板指
+2. **板块指数**：各行业板块指数
+3. **市场宽度**：上涨下跌股票比例
+4. **资金流向**：主力资金、北向资金
+5. **情绪指标**：恐慌贪婪指数、舆情情绪
+
+### 环境判断的输出格式
+
+```python
+{
+    "market_environment": {
+        "trend_analysis": {
+            "market_state": "bull/bear/sideways",
+            "trend_strength": "强/中/弱",
+            "risk_level": "高/中/低",
+            "suggested_action": "具体操作建议"
+        },
+        "sector_analysis": {
+            "strong_sectors": ["板块1", "板块2"],
+            "weak_sectors": ["板块3", "板块4"],
+            "market_character": "普涨/普跌/结构性"
+        },
+        "overall_assessment": {
+            "composite_score": 75.5,
+            "environment_rating": "良好/偏好/中性/偏差/差",
+            "operating_strategy": {
+                "strategy": "积极进攻/稳健参与/适度参与/谨慎操作/观望为主",
+                "suggested_position": "建议仓位",
+                "focus": "关注方向",
+                "risk_control": "风控要点"
+            }
+        }
+    }
+}
+```
